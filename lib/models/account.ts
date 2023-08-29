@@ -5,8 +5,8 @@ export interface AccountData {
     userId: string; // 계정 ID
     email: string; // 이메일
     password: string; // 계정 비번
-    name: string; // 이름
     nickname: string; // 닉네임
+    name: string; // 이름
     birth: string; // 생일
     phoneNumber: string;  // 전화번호
     type: string; // 회원 타입
@@ -87,11 +87,11 @@ const accountSchema = new mongoose.Schema<AccountData>({
     userId:{ type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    name: { type: String, required: true },
     nickname: { type: String, required: true },
-    birth: { type: String, required: true }, 
-    phoneNumber: { type: String, required: true }, 
-    type: { type: String, required: true },
+    name: { type: String },
+    birth: { type: String }, 
+    phoneNumber: { type: String}, 
+    type: { type: String },
     createdAt: Date,
     contractor:{
         profileImg: String,

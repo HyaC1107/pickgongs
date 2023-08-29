@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRef, useContext,createContext, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -15,8 +16,53 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useRouter } from 'next/router';
 import ServiceCustomer from './modal/serviceCustomer';
 import PrivacyPolicy from './modal/privacyPolicy';
+import { signIn, SignInResponse } from "next-auth/react";
 
+type SignMode = "SIGNIN" | "SIGNUP" | "SIGNAUTH";
+
+type SingContextType = {
+  currentUser?: string;
+  closeModal: (auto?: boolean) => void;
+  setUserStatus: (obj: { mode?: SignMode; currentUser?: string }) => void;
+};
+
+export const SignCotext = createContext<SingContextType | null>(null);
 export default function SignUp() {
+  const ctx = useContext(SignCotext);
+  const userIdRef = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+  const passwordCheckRef = useRef<HTMLInputElement>();
+  const emailRef = useRef<HTMLInputElement>();
+  const nickNameRef = useRef<HTMLInputElement>();
+
+  const signupHandle = async () => {
+    const datas = {
+      userId: userIdRef!.current?.value,
+      password: passwordRef!.current?.value,
+      email: emailRef!.current?.value,
+      nickname: nickNameRef!.current?.value,
+    };
+    const response = await fetch("/api/account/signup", {
+      method: "POST",
+      body: JSON.stringify(datas),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    console.log(response);
+    if (response.status === 201) {
+      const result: any = await signIn("credentials", {
+        redirect: false,
+        email: datas.email,
+        password: datas.password,
+      });
+      if (result.ok) {
+        ctx?.closeModal(true);
+      } else {
+      }
+    }
+  };
+
   const router = useRouter();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,6 +123,7 @@ export default function SignUp() {
                   id="userId"
                   label="name"
                   autoFocus
+                  inputRef={userIdRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -95,6 +142,7 @@ export default function SignUp() {
                   label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="password"
+                  inputRef={passwordRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -113,6 +161,7 @@ export default function SignUp() {
                   label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="passwordCheck"
+                  inputRef={passwordCheckRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -130,6 +179,7 @@ export default function SignUp() {
                   id="email"
                   label="name@email.com"
                   name="email"
+                  inputRef={emailRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -148,6 +198,7 @@ export default function SignUp() {
                   id="nickName"
                   label="닉네임을 입력해주세요"
                   name="nickName"
+                  inputRef={nickNameRef}
                 />
               </Grid>     
               <Grid item xs={12}>
@@ -183,6 +234,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, color:"white", fontSize:"27px" }}
+              onClick={signupHandle}
             >
               회원가입완료
             </Button>

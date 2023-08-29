@@ -29,14 +29,16 @@ export default async function handler(
 
   
   const data = req.body as AccountData;
+  
+  console.log(data);
   try {
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (
-      !data.email ||
-      !emailRegex.test(data.email) 
-    ) {
-      throw new Error("누락된 필드값이 존재합니다.");
-    }
+    // const emailRegex = /\S+@\S+\.\S+/;
+    // if (
+    //   !data.email ||
+    //   !emailRegex.test(data.email) 
+    // ) {
+    //   throw new Error("누락된 필드값이 존재합니다.");
+    // }
     const find = await Account.findOne({ email: data.email });
     if (find) {
       throw new Error("이미 사용중인 이메일입니다.");
@@ -48,6 +50,7 @@ export default async function handler(
       message: "회원가입처리가 되었습니다.",
     });
   } catch (e: any) {
+    console.log("오류");
     return res.status(422).json({
       result: false,
       message: e.message ?? "회원가입 중 오류가 발생하였습니다",
