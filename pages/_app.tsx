@@ -13,17 +13,8 @@ import DetailLayout from "../components/layout/detail-layout";
 const theme = createTheme({
   palette: {
     primary: {
-      main:'#000',
-      light:'#008A60',
-      dark: '#008A60',
-      contrastText: '#000',
-    },
-    secondary: {
-      light: '#008A60',
-      main: '#008A60',
-      dark: '#008A60',
-      contrastText: '#000',
-    } 
+      main:'#15BF81',
+    }
   },
   typography: {
     fontFamily: 'NotoSansKR-Bold'

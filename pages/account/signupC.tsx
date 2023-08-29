@@ -15,10 +15,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useRouter } from 'next/router';
+import ServiceCustomer from './modal/serviceCustomer';
+import PrivacyPolicy from './modal/privacyPolicy';
 
 export default function SignUpC() {
     const router = useRouter();
-    const [type, setType] = React.useState<string>("");
+    const [type, setType] = React.useState<string>("contractor");
     const [check, setCheck] = React.useState<boolean>(true);
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -29,18 +31,20 @@ export default function SignUpC() {
         });
     };
 
-  return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width:"640px"
-          }}
-        >
+  return (    
+    <Container component="main" >
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 4,
+          mx: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width:640,
+          maxWidth: '100%'
+        }}
+      >
           <Typography component="h1" fontSize={"43px"} fontFamily={"NotoSansKR-Regular"}>
             사업자 회원가입
           </Typography>
@@ -128,13 +132,13 @@ export default function SignUpC() {
                       setType("contractor");
                       setCheck(true);
                     }}
-                    sx={{border:"1px solid #ccc", backgroundColor:check?"#15BF81":"white"}}
+                    sx={{border:"1px solid #ccc",fontSize:21, height:66, backgroundColor:check?"#15BF81":"white", color:"black"}}
                 >시공업체</Button>
               </Grid>  
               <Grid item xs={12} sm={6}> 
                 <Button
                     fullWidth
-                    sx={{border:"1px solid #ccc",backgroundColor:check?"white":"#15BF81"}}
+                    sx={{border:"1px solid #ccc",fontSize:21, height:66,backgroundColor:check?"white":"#15BF81",color:"black"}}
                     onClick={()=>{
                         setType("heavyEquip");
                         setCheck(false);
@@ -144,6 +148,20 @@ export default function SignUpC() {
               <Grid item xs={12}>
                 <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>본인인증하기
                   <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>인증하기</Button></Typography>
+              </Grid> 
+              <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Checkbox value="allow1" color="primary" />}
+                    label="서비스 이용약관"
+                />               
+                <ServiceCustomer />
+              </Grid>  
+              <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Checkbox value="allow2" color="primary" />}
+                    label="개인정보처리방침"
+                />               
+                <PrivacyPolicy />
               </Grid>        
             </Grid>
             
@@ -151,7 +169,7 @@ export default function SignUpC() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{backgroundColor:"#FC8210", mt: 3, mb: 2, color:"white", fontSize:"27px" }}
+                sx={{backgroundColor:"black", mt: 3, mb: 2, color:"white", fontSize:"27px" }}
                 onClick={()=>{
                         if(type==="contractor"){
                             router.push("signupContractor");

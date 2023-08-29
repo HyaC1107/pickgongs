@@ -86,7 +86,7 @@ export default function SignIn() {
                 )
               }}
             />            
-            <Grid container>
+            <Grid container sx={{mt:4}}>
               <Grid item xs>
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
@@ -112,7 +112,6 @@ export default function SignIn() {
               <Grid item >
                 <Button fullWidth
                     variant="contained"
-                    color='secondary'
                     sx={{ml:"1rem",p:"1rem", backgroundColor:"white", border:"1px solid #ccc"}}
                     onClick={()=>router.push("/account/signup")}
                 >

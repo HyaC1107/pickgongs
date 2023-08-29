@@ -5,7 +5,7 @@ export default function AddressBar({type, setType}:{type:boolean; setType:any}) 
 
     return(
         <Box sx={{display:"flex", border:"1px solid #ccc", borderRadius:"0.2rem", p:2, width:"100%", margin:"auto"}}>
-          <Button sx={{backgroundColor:type?"#008A60":"white"}} onClick={()=>{setType(true)}}>우리집</Button>
+          <Button sx={{backgroundColor:type?"#008A60":"white", color:"black"}} onClick={()=>{setType(true)}}>우리집</Button>
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />
           <Button sx={{backgroundColor:type?"white":"#008A60"}} onClick={()=>{setType(false)}} >상가, 건물</Button>                   
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />

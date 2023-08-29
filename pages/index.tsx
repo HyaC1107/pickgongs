@@ -9,7 +9,7 @@ import Contractor from './contractor';
 export default function Home() {
   const { data, status } = useSession();
   return (         
-    <Grid container spacing={2} sx={{mt:10}}>
+    <Grid container spacing={2} sx={{mt:6}}>
       <Contractor />
     </Grid>
   );

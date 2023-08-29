@@ -5,9 +5,9 @@ export default function SearchBar({type, setType}:{type:boolean; setType:any}) {
 
     return(
         <Box sx={{display:"flex", border:"1px solid #ccc", borderRadius:"0.2rem", p:2, width:"100%", margin:"auto"}}>
-          <Button sx={{width:"75px", backgroundColor:type?"#15BF81":"white"}}  onClick={()=>{setType(true)}}>우리집</Button>
+          <Button sx={{width:"75px", backgroundColor:type?"#15BF81":"white", color:"black"}}  onClick={()=>{setType(true)}}>우리집</Button>
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />
-          <Button sx={{backgroundColor:type?"white":"#15BF81"}} onClick={()=>{setType(false)}} >상가, 건물</Button>                   
+          <Button sx={{backgroundColor:type?"white":"#15BF81",color:"black"}} onClick={()=>{setType(false)}} >상가, 건물</Button>                   
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />
           <TextField
             name="adress"

@@ -22,9 +22,7 @@ function Contractor() {
       sx={{
         position: "relative",
         maxWidth: "1280px",
-        margin: "auto",
-        pb: 10,
-        mt: 5,
+        margin: "auto"
       }}
     >
       <SearchBar type={type} setType={setType} />

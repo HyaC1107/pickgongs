@@ -1,20 +1,20 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {  InputAdornment, IconButton   } from '@mui/material';
+import {  InputAdornment } from '@mui/material';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonIcon from '@mui/icons-material/Person';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useRouter } from 'next/router';
+import ServiceCustomer from './modal/serviceCustomer';
+import PrivacyPolicy from './modal/privacyPolicy';
 
 export default function SignUp() {
   const router = useRouter();
@@ -23,20 +23,43 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
+      password: data.get('password')
     });
   };
 
+//   const onClickCertify = async () => {
+//     const { form } = document;
+//     const left = screen.width / 2 - 500 / 2;
+//     const top = screen.height / 2 - 800 / 2;
+//     const option = `status=no, menubar=no, toolbar=no, resizable=no, width=500, height=600, left=${left}, top=${top}`;
+//     const returnUrl = `${process.env.SERVER_ADDRESS}/api/nice`;  // 본인인증 결과를 전달받을 api url
+
+//     // 위에서 언급했던 token api가 요청 데이터를 암호화한 후 표준창 호출에 필요한 데이터를 응답해준다.
+//     const res = await api.get<NiceEncodeType>('/api/token', { returnUrl });
+
+//     if (form && res.data) {
+//         const { enc_data, integrity_value, token_version_id } = res.data;
+//         window.open('', 'nicePopup', option);
+
+//         form.target = 'nicePopup';
+//         form.enc_data.value = enc_data;
+//         form.token_version_id.value = token_version_id;
+//         form.integrity_value.value = integrity_value;
+//         form.submit();
+//     }
+// };
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
         <CssBaseline />
         <Box
           sx={{
             marginTop: 4,
+            mx: 'auto',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            width:"640px"
+            width:640,
+            maxWidth: '100%'
           }}
         >
           <Typography component="h1" fontSize={"43px"} fontFamily={"NotoSansKR-Regular"} >
@@ -128,9 +151,31 @@ export default function SignUp() {
                 />
               </Grid>     
               <Grid item xs={12}>
+              {/* <form name="form" id="form" action="https://nice.checkplus.co.kr/CheckPlusSafeModel/service.cb">
+                  <input type="hidden" id="m" name="m" value="service" />
+                  <input type="hidden" id="token_version_id" name="token_version_id" value="" />
+                  <input type="hidden" id="enc_data" name="enc_data" />
+                  <input type="hidden" id="integrity_value" name="integrity_value" />
+              </form>
+
+              <button onClick={onClickCertify}> 휴대폰 인증 </button> */}
                 <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>본인인증하기
                   <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>인증하기</Button></Typography>
-              </Grid>           
+              </Grid>         
+              <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Checkbox value="allow1" color="primary" />}
+                    label="서비스 이용약관"
+                />               
+                <ServiceCustomer />
+              </Grid>  
+              <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Checkbox value="allow2" color="primary" />}
+                    label="개인정보처리방침"
+                />               
+                <PrivacyPolicy />
+              </Grid> 
             </Grid>
                
             <Button

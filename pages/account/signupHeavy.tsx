@@ -14,6 +14,7 @@ import {Divider} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
+import AddIcon from '@mui/icons-material/Add';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 
@@ -33,67 +34,75 @@ export default function SignUpHeavy() {
   };
 
   return (
-      <Container component="main" maxWidth="lg">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            
-          }}
-        >
+    <Container component="main" >
+    <CssBaseline />
+    <Box
+      sx={{
+        marginTop: 4,
+        mx: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width:640,
+        maxWidth: '100%'
+      }}
+    >
           <Typography component="h1" sx={{fontSize:"2rem", fontWeight:"bold", mb:2}}>
-            사업자 회원가입
-          </Typography>
-          <Typography variant="h5">중장비</Typography>          
+            파트너 신청서
+          </Typography>      
+          <Typography sx={{textAlign:"center"}}>중장비차량 검수과정입니다. 정확하게 촬영하여 등록해주세요</Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Typography sx={{textAlign:"center"}}>중장비차량 검수과정입니다. 정확하게 촬영하여 등록해주세요</Typography>
                 <Box sx={{display:"flex", justifyContent:"space-around", textAlign:"center"}}>
                   <Box>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
                     <Typography>전면</Typography>
                   </Box>
                   <Box>
-                  <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                  <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
                     <Typography>측면</Typography>
                   </Box>
                   <Box>
-                  <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                  <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
                     <Typography>후면</Typography>
                   </Box>
-                </Box>
-                <Box sx={{display:"flex", justifyContent:"space-around"}}>
-                  <Box>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                    <Typography>사업장 사진추가</Typography>
-                    <Typography variant='subtitle2'>(간판이 포함된 전면사진)</Typography>
-                  </Box>
-                  <Box>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem"}} />
-                    <Typography>임대차계약서</Typography>
-                  </Box>
-                </Box>
+                </Box>                
               </Grid>
-              <Grid item xs={12} >
-                <Box sx={{display:"flex", justifyContent:"space-between"}}>
-                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>사업자등록증</Typography>       
+              <Grid item xs={12}>
+                <Box sx={{display:"flex", justifyContent:"space-around", textAlign:"center"}}>
                   <Box>
-                    <Button sx={{backgroundColor:"#7D7D7D", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button>          
-                    <Button sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>사진등록</Button>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography>사업자등록증</Typography>               
                   </Box>
-                </Box>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="사업자번호 입력"                                    
-                />
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography>운전면허증</Typography>
+                  </Box>
+                  <Box>
+                  <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography>자동차등록증</Typography>               
+                  </Box>
+                  
+                </Box>                
               </Grid>
               <Grid item xs={12}>
               <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>업체명</Typography>
@@ -117,30 +126,19 @@ export default function SignUpHeavy() {
                   id="location"
                 />
               </Grid>
-              <Divider sx={{width:"100%", mt:2}} />
-              <Grid item xs={12} sm={5}>
+              <Grid item xs={12}>
               <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>크레인 종류</Typography> 
                 <Select
                   value={gurantee}
                   onChange={handleChange}
-                  sx={{width:"80%"}}                  
+                  sx={{width:"100%"}}                  
                 >
                     <MenuItem value={1}>카고크레인</MenuItem>
                     <MenuItem value={2}>사다리차</MenuItem>
                     <MenuItem value={3}>고소작업차</MenuItem>
                   </Select>
               </Grid>
-              <Grid item xs={12} sm={4}>
-              <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>차종 TON</Typography> 
-                  <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="차종 TON"
-                    id="location"
-                  />
-              </Grid>
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} sm={6}>
               <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>경력</Typography> 
                   <TextField
                     required
@@ -150,40 +148,71 @@ export default function SignUpHeavy() {
                     id="location"
                   />
               </Grid>
-              <Divider sx={{width:"100%", mt:2}} />
-              <Grid item xs={12}>
-                <Typography sx={{textAlign:"center", fontWeight:"bold"}}>해당자격증 사진촬영하여 업로드 하시길바랍니다</Typography>
-                <Box sx={{display:"flex",mt:4, justifyContent:"space-around"}}>
-                  <Box>
-                    <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>자격증 사진</Typography>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                  </Box>
-                  <Box>
-                    <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>이수증 사진</Typography>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                  </Box>
-                </Box>
-              </Grid> 
-              <Grid item xs={12}>
-              <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>사업자 이메일</Typography>
-                <TextField
-                  required
-                  fullWidth
-                  id="companyName"
-                  name="companyName"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>포트폴리오(홈페이지,블로그,티스토리,유튜브,인스타그램 등등)</Typography>
-                <TextField
+              <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>차종 TON</Typography> 
+                  <TextField
                     required
                     fullWidth
                     name="location"
-                    label="대표님의 포트폴리오를 확인할 수 있는 URL을 입력하세요"
+                    label="차종 TON"
+                    id="location"
+                  />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:1}}>사업자 이메일</Typography>
+                <TextField
+                  required
+                  fullWidth
+                  name="companyEmail"
+                  label="사업자 이메일"
+                  id="companyEmail"
+                />  
+              </Grid>
+              <Divider sx={{width:"100%", mt:2}} />
+              <Grid item xs={12}>
+                <Box sx={{display:"flex", justifyContent:"space-around", textAlign:"center"}}>
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography>화물운송자격증</Typography>               
+                  </Box>
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:150, height:150, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography>조종교육이수증</Typography>
+                  </Box>
+                </Box>                
+              </Grid>
+              <Grid item xs={12}>
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>홈페이지 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="개인이 보유한 도메인 URL을 입력하세요"
                     id="location"
                     sx={{mb:2}}
                 />
-              </Grid>             
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>SNS 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="블로그,인스타그램,페이스북,밴드 등 URL을 입력하세요"
+                    id="location"
+                    sx={{mb:2}}
+                />
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>유튜브 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="유튜브 URL을 입력하세요"
+                    id="location"
+                    sx={{mb:2}}
+                />
+              </Grid>       
             </Grid>
             <Grid item xs={12} sx={{textAlign:"right"}}>
               <Button

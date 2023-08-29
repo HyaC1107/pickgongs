@@ -14,15 +14,28 @@ import {Divider} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-
+import AddIcon from '@mui/icons-material/Add';
+import { categories,categories2 } from '@/lib/categories';
 
 export default function SignUpContractor() {
   const router = useRouter();
-  const [gurantee, setGurantee] = React.useState('');
-  const handleChange = (event: SelectChangeEvent) => {
-    setGurantee(event.target.value as string);
+  const sliceCa = categories.slice(0,22);
+
+  const [guarantee, setGuarantee] = React.useState('');
+  const [guaranteeAgency, setGuaranteeAgency] = React.useState('');
+  const [category, setCategory] = React.useState('');
+
+  const handleChangeCategory = (event: SelectChangeEvent) => {
+    setCategory(event.target.value as string);
   };
+  const handleChangeG = (event: SelectChangeEvent) => {
+    setGuarantee(event.target.value as string);
+  };
+  const handleChangeGA = (event: SelectChangeEvent) => {
+    setGuaranteeAgency(event.target.value as string);
+  };
+
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,33 +46,42 @@ export default function SignUpContractor() {
   };
 
   return (
-      <Container component="main" maxWidth="lg">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+    <Container component="main" >
+    <CssBaseline />
+    <Box
+      sx={{
+        marginTop: 4,
+        mx: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width:640,
+        maxWidth: '100%'
+      }}
+    >
           <Typography component="h1" sx={{fontSize:"2rem", fontWeight:"bold", mb:2}} >
-            사업자 회원가입
+            파트너 신청서
           </Typography>
           <Typography variant="h5">개인사업장</Typography>          
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Typography sx={{textAlign:"center"}}>사업장 검수과정입니다. 사업장 정면으로 정확하게 촬영하여 등록해주세요</Typography>
+                <Typography sx={{textAlign:"center",mb:2}}>사업장 검수과정입니다. 사업장 정면으로 정확하게 촬영하여 등록해주세요</Typography>
                 <Box sx={{display:"flex", justifyContent:"space-around",textAlign:"center"}}>
                   <Box>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                    <Typography>사업장 사진추가</Typography>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography sx={{fontSize:"1.5rem",mt:2}}>사업장 사진추가</Typography>
                     <Typography variant='subtitle2'>(간판이 포함된 전면사진)</Typography>
                   </Box>
                   <Box>
-                    <AddBoxOutlinedIcon sx={{fontSize:"6rem"}} />
-                    <Typography>임대차계약서</Typography>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc",backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                    <Typography sx={{fontSize:"1.5rem",mt:2}}>임대차계약서</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -68,7 +90,10 @@ export default function SignUpContractor() {
                   <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>사업자등록증</Typography>       
                   <Box>
                     <Button sx={{backgroundColor:"#7D7D7D", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button>          
-                    <Button sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>사진등록</Button>
+                    <Button variant="contained" component="label" sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>
+                      사진등록
+                      <input hidden accept="image/*" type="file" />
+                    </Button>
                   </Box>
                 </Box>
                 <TextField
@@ -84,7 +109,10 @@ export default function SignUpContractor() {
                 <Box sx={{display:"flex", justifyContent:"space-between", mb:1}}>
                   <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>신분증 사진등록</Typography>   
                   <Box>     
-                    <Button sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>사진등록</Button>
+                    <Button variant="contained" component="label" sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>
+                      사진등록
+                      <input hidden accept="image/*" type="file" />
+                    </Button>
                   </Box>                                  
                 </Box>    
                 <TextField
@@ -118,95 +146,20 @@ export default function SignUpContractor() {
                   id="location"
                 />
               </Grid> 
-              <Divider sx={{m:2, width:"100%"}} />
-              <Grid container spacing={2} sx={{width:"80%", margin:"auto"}}>
-                <Grid item xs={12}>
-                  <Typography sx={{fontSize:"1rem", fontWeight:"bold",mb:1,textAlign:"center" }}>주 업종을 등록하세요(자격증이 없다면 없음으로 입력)</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="주업종을 입력하세요"
-                    id="location"
-                    sx={{mb:2}}
-                  />
-                  <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="자격증 종목을 입력하세요"
-                    id="location"
-                    sx={{mb:2}}
-                  />                  
-                </Grid>
-                <Grid item xs={12} sm={6} sx={{pl:"4rem"}}>
-                  <Typography sx={{fontSize:"1rem", fontWeight:"bold",mb:1}}>자격증 사진추가</Typography>
-                  <AddBoxOutlinedIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                </Grid>
-                <Button sx={{fontSize:"1rem", fontWeight:"bold",mb:1}}>자격증 추가하기</Button>
-              </Grid>
-              <Divider sx={{m:2, width:"100%"}} />
               <Grid item xs={12}>
-                <Typography sx={{fontSize:"1rem", fontWeight:"bold",mb:1}}>소비자 보호 및 업체보호를 위해 보증기관을 통하여 보증발급 유무 확인란입니다. </Typography>
-                <Box sx={{mt:2}}>
-                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>보증기관 발급 유/무</Typography>
-                  <Select
-                    value={gurantee}
-                    onChange={handleChange}
-                    sx={{width:"80%"}}
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:1}}>주업종</Typography>
+                <Select
+                    value={category}
+                    onChange={handleChangeCategory}
+                    sx={{width:"100%"}}
                   >
-                    <MenuItem value={10}>SGI서울보증보험</MenuItem>
-                    <MenuItem value={20}>전문건설공제조합</MenuItem>
+                    {sliceCa.map((one)=>(
+                      <MenuItem key={one.name} value={one.name}>{one.name}</MenuItem>
+                    ))}
                   </Select>
-                </Box>
-                <Box sx={{mt:2}}>
-                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>보증 가능 여부를 선택하세요</Typography>
-                  <Select
-                    value={gurantee}
-                    onChange={handleChange}
-                    sx={{width:"80%"}}
-                  >
-                    <MenuItem value={1}>지급보증보험</MenuItem>
-                    <MenuItem value={2}>이행보증보험</MenuItem>
-                    <MenuItem value={3}>계약보증보험</MenuItem>
-                    <MenuItem value={4}>선금보증보험</MenuItem>
-                    <MenuItem value={5}>하자보증보험</MenuItem>
-                    <MenuItem value={5}>공사이행보증보험</MenuItem>
-                  </Select>
-                </Box>
               </Grid>
-              <Divider sx={{m:2, width:"100%"}} />
               <Grid item xs={12}>
-                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>포트폴리오(홈페이지,블로그,티스토리,유튜브,인스타그램 등등)</Typography>
-                <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="대표님의 포트폴리오를 확인할 수 있는 URL을 입력하세요"
-                    id="location"
-                    sx={{mb:2}}
-                />
-                <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="대표님의 포트폴리오를 확인할 수 있는 URL을 입력하세요"
-                    id="location"
-                    sx={{mb:2}}
-                />
-                <TextField
-                    required
-                    fullWidth
-                    name="location"
-                    label="대표님의 포트폴리오를 확인할 수 있는 URL을 입력하세요"
-                    id="location"
-                    sx={{mb:2}}
-                />
-              </Grid>
-              <Grid item xs={12} sm={8}>
-                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>사업자 이메일</Typography>
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:1}}>사업자 이메일</Typography>
                 <TextField
                   required
                   fullWidth
@@ -215,16 +168,94 @@ export default function SignUpContractor() {
                   id="companyEmail"
                 />  
               </Grid>
-              <Grid item xs={12} sm={4}>
-              <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>A/S기간을 입력해주세요</Typography>
+              <Grid item xs={12}>
+              <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:1}}>A/S기간을 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
                   name="afterService"
-                  label=""
                   id="afterService"
                 />  
               </Grid>
+              <Grid container spacing={2} sx={{width:"80%", margin:"auto"}}>
+              <Typography sx={{textAlign:"center",mb:2,mt:4}}>정확한 내용과 파일을 등록 해주세요!</Typography>
+                <Grid item xs={12} sm={6} sx={{pl:"4rem"}}>
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc",flexDirection:"column", backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <Typography sx={{textAlign:"center"}}>필수자격증</Typography>
+                      <input hidden accept="image/*" type="file" />
+                    </Button >
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6} sx={{pl:"4rem"}}>
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc",flexDirection:"column",backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <Typography sx={{textAlign:"center"}}>추가자격증</Typography>
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button >
+                  </Box>
+                </Grid>
+              </Grid>
+              <Divider sx={{m:2, width:"100%"}} />
+              <Grid item xs={12}>
+                <Typography sx={{fontSize:"1rem", fontWeight:"bold",mb:1}}>소비자 보호 및 업체보호를 위해 보증기관을 통하여 보증발급 유무 확인란입니다. </Typography>
+                <Box sx={{mt:2}}>
+                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>보증기관 발급 유/무</Typography>
+                  <Select
+                    value={guaranteeAgency}
+                    onChange={handleChangeGA}
+                    sx={{width:"100%"}}
+                  >
+                    <MenuItem value={"SGI서울보증보험"}>SGI서울보증보험</MenuItem>
+                    <MenuItem value={"전문건설공제조합"}>전문건설공제조합</MenuItem>
+                  </Select>
+                </Box>
+                <Box sx={{mt:2}}>
+                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>보증 가능 여부를 선택하세요</Typography>
+                  <Select
+                    value={guarantee}
+                    onChange={handleChangeG}
+                    sx={{width:"100%"}}
+                  >
+                    <MenuItem value={"지급보증보험"}>지급보증보험</MenuItem>
+                    <MenuItem value={"이행보증보험"}>이행보증보험</MenuItem>
+                    <MenuItem value={"계약보증보험"}>계약보증보험</MenuItem>
+                    <MenuItem value={"선금보증보험"}>선금보증보험</MenuItem>
+                    <MenuItem value={"하자보증보험"}>하자보증보험</MenuItem>
+                    <MenuItem value={"공사이행보증보험"}>공사이행보증보험</MenuItem>
+                  </Select>
+                </Box>
+              </Grid>
+              <Divider sx={{m:2, width:"100%"}} />
+              <Grid item xs={12}>
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>홈페이지 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="개인이 보유한 도메인 URL을 입력하세요"
+                    id="location"
+                    sx={{mb:2}}
+                />
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>SNS 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="블로그,인스타그램,페이스북,밴드 등 URL을 입력하세요"
+                    id="location"
+                    sx={{mb:2}}
+                />
+                <Typography sx={{fontSize:"1.5rem", fontWeight:"bold", mb:2}}>유튜브 링크</Typography>
+                <TextField
+                    fullWidth
+                    name="location"
+                    label="유튜브 URL을 입력하세요"
+                    id="location"
+                    sx={{mb:2}}
+                />
+              </Grid>
+              
             </Grid>
             <Grid item xs={12} sx={{textAlign:"right"}}>
               <Button
