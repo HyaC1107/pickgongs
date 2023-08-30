@@ -1,5 +1,5 @@
 import mongoose  from "mongoose";
-import { ContractorData } from "./contractor";
+import { PickItemData } from "./pickItem";
 
 export interface BookConstructionData{
     _id: mongoose.Types.ObjectId;
@@ -7,7 +7,7 @@ export interface BookConstructionData{
     categories: Array<string>;  // 카테고리
     contractors: Array<{
         contractorId: string;
-        info?: ContractorData;   
+        info?: PickItemData;   
         meetDate: Date;
         checked: boolean;
         status: string;

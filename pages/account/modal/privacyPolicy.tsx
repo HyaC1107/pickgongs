@@ -60,7 +60,7 @@ export default function PrivacyPolicy() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} sx={{border:"0px", color:"#848484"}}>
         전문보기
       </Button>
       <SimpleDialog

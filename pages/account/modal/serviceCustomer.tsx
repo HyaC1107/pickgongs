@@ -40,7 +40,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             서비스 이용약관 내역
         </Typography>
       </List>
-      <Button onClick={handleClose}>닫기</Button>
+      <Button onClick={handleClose} >닫기</Button>
     </Dialog>
   );
 }
@@ -60,7 +60,7 @@ export default function ServiceCustomer() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} sx={{border:"0px", color:"#848484"}}>
         전문보기
       </Button>
       <SimpleDialog

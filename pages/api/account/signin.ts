@@ -7,12 +7,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("SERVER - " + req.body);
+  console.log(req.body);
   mongooseInit();
-  const { email, password } = req.body as { email: string; password: string };
-  const find = await Account.findOne({ email: email });
+  const { userId, password } = req.body as { userId: string; password: string };
+  const find = await Account.findOne({ userId: userId });
   console.log("SERVER - " + find);
   if (compareSync(password, find?.password!)) {
+    console.log("일치");
     return res.status(200).json(find);
   }
   return res.status(406).json(null);

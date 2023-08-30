@@ -1,46 +1,42 @@
 @font-face {
-  font-family: 'NanumSquareEB';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/NanumSquareEB.otf') format('otf');
-}
-@font-face {
-  font-family: 'NotoSansKR-Black';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/NotoSansKR-Black.otf') format('otf');
-}
-@font-face {
   font-family: 'NotoSansKR-Bold';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/NotoSansKR-Bold.otf') format('otf');
+  src: url('/fonts/NotoSansKR-Bold.otf') format('opentype');
 }
 @font-face {
   font-family: 'NotoSansKR-Medium';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/NotoSansKR-Medium.otf') format('otf');
+  src: url('/fonts/NotoSansKR-Medium.otf') format('opentype');
 }
 @font-face {
   font-family: 'NotoSansKR-Regular';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/NotoSansKR-Regular.otf') format('otf');
-}
-@font-face {
-  font-family: 'Pretendard-SemiBold';
-  font-weight: 400;
-  font-style: normal;
-  src: url('/fonts/Pretendard-SemiBold.otf') format('otf');
+  src: url('/fonts/NotoSansKR-Regular.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'test1';
+  src: url('/fonts/NanumBrushScript-Regular.ttf') format('truetype');
+}
+
+
+@font-face {
+  font-family: 'NotoSansCJKkr-Bold';
+  src: url('/fonts/NotoSansCJKkr-Bold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'NotoSansCJKkr-Regular';
+  src: url('/fonts/NotoSansCJKkr-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'NotoSansCJKkr-Medium';
+  src: url('/fonts/NotoSansCJKkr-Medium.otf') format('opentype');
+}
+@font-face {
+  font-family: 'NotoSansCJKkr-Light';
+  src: url('/fonts/NotoSansCJKkr-Light.otf') format('opentype');
+}
 html,
 body {
   padding: 0;
   margin: 0;  
-  font-family:'NotoSansKR-Bold';
-  font-size:large;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -63,3 +59,58 @@ input[type="number"]::-webkit-inner-spin-button {
 .MuiPickerStaticWrapper-content>div> div:first-child {
   display: none;
 }
+
+
+
+
+
+/* 361 - 720 모바일 */
+@media only screen and (min-width: 361px) and (max-width: 720px) {  
+  /* 폰트크기 */
+  .title1 { font-size: 17px; font-family: 'NotoSansCJKkr-Bold';}
+  .title2 { font-size: 15px; font-family: 'NotoSansCJKkr-Bold';}
+  .title3 { font-size: 14px; font-family: 'NotoSansCJKkr-Medium';}
+
+  .text1 { font-size: 13px; font-family: 'NotoSansCJKkr-Medium';}
+  .text2 { font-size: 12px; font-family: 'NotoSansCJKkr-Regular';}
+  .text3 { font-size: 11px; font-family: 'NotoSansCJKkr-Regular';}
+
+  .poptext {font-size: 13px; font-family: 'NotoSansCJKkr-Medium';}
+  .caption { font-size: 10px; font-family: 'NotoSansCJKkr-Regular';}
+
+  /* 로그인 */
+  .signInTitle{
+    margin-top: 108px;
+  }
+}
+
+@media only screen and (min-width: 721px) and (max-width: 1024px) {
+  
+  /* 로그인 */
+  .signInTitle{
+    margin-top: 215px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  /* 로그인 */
+  .signInTitle{
+    margin-top: 108px;
+  }
+}
+
+
+@media (min-width: 721px) {
+  /* 폰트크기 */
+  .title1 { font-size: 34px; font-family: 'NotoSansCJKkr-Bold';}
+  .title2 { font-size: 30px; font-family: 'NotoSansCJKkr-Bold';}
+  .title3 { font-size: 28px; font-family: 'NotoSansCJKkr-Medium';}
+
+  .text1 { font-size: 26px; font-family: 'NotoSansCJKkr-Medium';}
+  .text2 { font-size: 24px; font-family: 'NotoSansCJKkr-Regular';}
+  .text3 { font-size: 22px; font-family: 'NotoSansCJKkr-Regular';}
+
+  .poptext {font-size: 26px; font-family: 'NotoSansCJKkr-Medium';}
+  .caption{ font-size: 20px; font-family: 'NotoSansCJKkr-Regular';}
+}
+

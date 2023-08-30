@@ -11,6 +11,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import {Divider} from '@mui/material';
+import { useRef, useContext,createContext, useState } from "react";
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
@@ -36,13 +37,33 @@ export default function SignUpContractor() {
   };
 
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const signupHandle = async () => {
+
+    const userIdRef = useRef<HTMLInputElement>();
+    const passwordRef = useRef<HTMLInputElement>();
+    const passwordCheckRef = useRef<HTMLInputElement>();
+    const emailRef = useRef<HTMLInputElement>();
+    const nickNameRef = useRef<HTMLInputElement>();
+
+    const datas = {
+      userId: userIdRef!.current?.value,
+      password: passwordRef!.current?.value,
+      email: emailRef!.current?.value,
+      nickname: nickNameRef!.current?.value
+    };
+    const response = await fetch("/api/account/signup", {
+      method: "POST",
+      body: JSON.stringify(datas),
+      headers: {
+        "Content-type": "application/json",
+      },
     });
+    console.log(response);
+    if (response.status === 201) {
+      router.push("/");      
+    } else if(response.status === 406) {
+      alert("아이디와 비밀번호가 일치하지 않습니다.");
+    }
   };
 
   return (
@@ -63,7 +84,7 @@ export default function SignUpContractor() {
             파트너 신청서
           </Typography>
           <Typography variant="h5">개인사업장</Typography>          
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography sx={{textAlign:"center",mb:2}}>사업장 검수과정입니다. 사업장 정면으로 정확하게 촬영하여 등록해주세요</Typography>
@@ -79,21 +100,35 @@ export default function SignUpContractor() {
                   <Box>
                     <Button variant="contained" component="label" sx={{border:"1px solid #ccc",backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
                       <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
-                      <input hidden accept="image/*" multiple type="file" />
+                      <input hidden accept="image/*"   type="file" />
                     </Button >
                     <Typography sx={{fontSize:"1.5rem",mt:2}}>임대차계약서</Typography>
                   </Box>
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <Box sx={{display:"flex", justifyContent:"space-between", mb:1}}>
-                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>사업자등록증</Typography>       
+                <Box sx={{display:"flex", justifyContent:"space-around",textAlign:"center"}}>
                   <Box>
-                    <Button sx={{backgroundColor:"#7D7D7D", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button>          
-                    <Button variant="contained" component="label" sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>
-                      사진등록
-                      <input hidden accept="image/*" type="file" />
-                    </Button>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc", backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*"  type="file" />
+                    </Button >
+                    <Typography sx={{fontSize:"1.5rem",mt:2}}>사업자등록증</Typography>
+                  </Box>
+                  <Box>
+                    <Button variant="contained" component="label" sx={{border:"1px solid #ccc",backgroundColor:"white", width:200, height:200, borderRadius:"1rem"}}>
+                      <AddIcon sx={{fontSize:"6rem", cursor:"pointer"}} />
+                      <input hidden accept="image/*"   type="file" />
+                    </Button >
+                    <Typography sx={{fontSize:"1.5rem",mt:2}}>신분증</Typography>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box sx={{display:"flex", justifyContent:"space-between", mb:1}}>
+                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>사업자번호</Typography>       
+                  <Box>
+                    <Button sx={{backgroundColor:"#7D7D7D", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button>  
                   </Box>
                 </Box>
                 <TextField
@@ -104,25 +139,6 @@ export default function SignUpContractor() {
                   id="firstName"
                   label="사업자번호 입력"                                    
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <Box sx={{display:"flex", justifyContent:"space-between", mb:1}}>
-                  <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>신분증 사진등록</Typography>   
-                  <Box>     
-                    <Button variant="contained" component="label" sx={{backgroundColor:"#02CE9D", color:"white", borderRadius:"1rem", ml:2}}>
-                      사진등록
-                      <input hidden accept="image/*" type="file" />
-                    </Button>
-                  </Box>                                  
-                </Box>    
-                <TextField
-                    autoComplete="given-name"
-                    name="firstName"
-                    disabled                    
-                    fullWidth
-                    id="firstName"
-                    label="신분증 파일"                                    
-                  />               
               </Grid>
               <Grid item xs={12}>
                 <Typography sx={{fontSize:"1.5rem", fontWeight:"bold"}}>업체명</Typography>
@@ -142,7 +158,6 @@ export default function SignUpContractor() {
                   required
                   fullWidth
                   name="location"
-                  label="주소"
                   id="location"
                 />
               </Grid> 
@@ -164,7 +179,6 @@ export default function SignUpContractor() {
                   required
                   fullWidth
                   name="companyEmail"
-                  label="사업자 이메일"
                   id="companyEmail"
                 />  
               </Grid>

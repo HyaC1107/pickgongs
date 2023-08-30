@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,60 +7,117 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { OutlinedInput, InputAdornment, IconButton,InputLabel   } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
+import { useRef, useContext, useState } from "react";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useRouter } from 'next/router';
-
-
+import { SignCotext } from './signup';
+import { signIn } from 'next-auth/react'
 
 export default function SignIn() {
+    const ctx = useContext(SignCotext);
+    const userIdRef = useRef<HTMLInputElement>();
+    const passwordRef = useRef<HTMLInputElement>();
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+      event.preventDefault();
     };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    
+    const [userId, setUserId] = useState<string>("");
+
+    const handleSubmit = async () => {
+      const datas = {
+        userId: userIdRef!.current?.value,
+        password: passwordRef!.current?.value,
+      };
+      console.log(datas);
+      const response = await fetch("/api/account/signin", {
+        method: "POST",
+        body: JSON.stringify(datas),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      console.log(response);
+      if (response.status === 200) {
+        router.push("/");
+      }else{
+        console.log(response);
+      }
+      // const result:any = await signIn("credentials", {
+      //   userId: userIdRef!.current?.value,
+      //   password: passwordRef!.current?.value,
+      //   // redirect: true,
+      //   // callbackUrl: "/",
+      // });
+      // console.log(result);
+      // if (result.ok) {
+
+      // }
+    }
+
+    // const submitHandle = async (code?: string) => {
+    //   if (code === "Enter" || code === undefined) {
+    //     ctx?.setUserStatus({ currentUser: userId });
+  
+    //     const response = await fetch("/api/account/flow", {
+    //       method: "POST",
+    //       body: JSON.stringify({ loginIdentifier: userId }),
+    //       headers: { "Content-type": "application/json" },
+    //     });
+    //     if (response.status === 200) {
+    //       const json = await response.json();
+    //       ctx?.setUserStatus({ mode: "SIGNAUTH" });
+    //     } else if (response.status === 302) {
+    //       ctx?.setUserStatus({ mode: "SIGNUP" });
+    //     } else {
+    //     }
+    //   }
+    // };
+
+
+
+
+    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //   event.preventDefault();
+    //   const data = new FormData(event.currentTarget);
+    //   console.log({
+    //     email: data.get('email'),
+    //     password: data.get('password'),
+    // });
+  // };
 
   return (
       <Container component="main" >
         <CssBaseline />
         <Box
-          sx={{
-            marginTop: 12,
+          className='signInTitle'
+          sx={{            
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" sx={{fontSize:"38px"}}>
-            시작하기 전에 로그인이 필요해요
-          </Typography>
-          <Typography component="h1" sx={{fontSize:"28px", mb:2, fontWeight:"bolder", color:"#615959"}}>
-            회원전용 로그인 전환
+          <Typography component="h1" sx={{fontSize:"44px", fontFamily:"NotoSansCJKkr-Bold", letterSpacing:"-2.7px"}}>
+            시공전문가 찾고 <span style={{fontSize:"54px", color:"#2CB07B"}}>픽!</span> 할 땐
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="userId"
               label="아이디를 입력해주세요"
-              name="email"
-              autoComplete="email"
+              name="userId"
+              inputRef={userIdRef}
               autoFocus
+              onChange={(evt) => setUserId(evt.target.value)}
             />
             <TextField
               margin="normal"
@@ -71,6 +127,7 @@ export default function SignIn() {
               name="password"
               label="비밀번호를 입력해주세요"
               type={showPassword ? 'text' : 'password'}
+              inputRef={passwordRef}
               InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
@@ -99,35 +156,23 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+            <Grid item >
+                <Button fullWidth
+                    sx={{backgroundColor:"white", color:"#8A8A8A",mt: 10}}
+                    onClick={()=>router.push("/account/signupType")}
+                >
+                  회원 / 파트너 회원가입
+                </Button>
+            </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
-              onClick={()=>router.push("/contractor")}
-              sx={{ mt: 3, mb: 2, color:"white", backgroundColor:"black", height:"4rem", fontSize:"1.5rem", borderRadius:"1rem" }}
+              onClick={handleSubmit}
+              sx={{ mt: 10, mb: 2, color:"white", backgroundColor:"black", height:"4rem", fontSize:"1.5rem", borderRadius:"1rem" }}
             >
               로그인
             </Button>
-            <Grid container gap={1} sx={{display:"flex", justifyContent:"space-between"}} >
-              <Grid item >
-                <Button fullWidth
-                    variant="contained"
-                    sx={{ml:"1rem",p:"1rem", backgroundColor:"white", border:"1px solid #ccc"}}
-                    onClick={()=>router.push("/account/signup")}
-                >
-                  회원가입 하러가기
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button fullWidth
-                    variant="contained"
-                    sx={{right:"1rem",p:"1rem", backgroundColor:"white", border:"1px solid #ccc", color:"black"}}
-                    onClick={()=>router.push("/account/signupC")}
-                >
-                  업체가입 하러가기
-                </Button>
-              </Grid>
-            </Grid>
+              
           </Box>
         </Box>
       </Container>

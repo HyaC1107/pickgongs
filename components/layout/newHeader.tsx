@@ -14,8 +14,12 @@ import PersonIcon from '@mui/icons-material/Person';
 const pages = ['Products', 'Pricing', 'Blog'];
 
 function NewHeader() {
+  const { data, status } = useSession();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const router = useRouter();
+
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -97,19 +101,35 @@ function NewHeader() {
                     <img src='/icons/top/알림.png'  />
                     <Typography >알림</Typography>  
                   </MenuItem>
-                  <MenuItem onClick={()=>router.push("/account/signin")}
-                    sx={{ my: 1, mx: 1.5, color:"black"}}>                    
-                    <img src='/icons/top/로그인.png' />
-                    <Typography >
-                      로그인
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem href="#" sx={{ my: 1, mx: 1.5, color:"black" }}>
-                    <img src='/icons/top/회원가입.png' />
-                    <Typography sx={{ml:1}}>
-                    회원가입
-                    </Typography>
-                  </MenuItem>
+                  {(status === "unauthenticated" || status === "loading") && (
+                    <>
+                      <MenuItem onClick={()=>router.push("/account/signin")}
+                        sx={{ my: 1, mx: 1.5, color:"black"}}>                    
+                        <img src='/icons/top/로그인.png' />
+                        <Typography >
+                          로그인
+                        </Typography>
+                      </MenuItem>
+                      <MenuItem onClick={()=>router.push("/account/signupType")} sx={{ my: 1, mx: 1.5, color:"black" }}>
+                        <img src='/icons/top/회원가입.png' />
+                        <Typography sx={{ml:1}}>
+                        회원가입
+                        </Typography>
+                      </MenuItem>
+                    </>
+                  )}
+                  {status === "authenticated" && (
+                    <>
+                    <MenuItem onClick={()=>router.push("/account/signin")}
+                        sx={{ my: 1, mx: 1.5, color:"black"}}>                    
+                        <img src='/icons/top/로그아웃.png' />
+                        <Typography >
+                          로그아웃
+                        </Typography>
+                      </MenuItem>
+                    </>
+                  )}
+                  
                   <MenuItem href="#" sx={{ my: 1, mx: 1.5, color:"black" }}>
                     <Typography >
                       앱다운로드
@@ -126,22 +146,37 @@ function NewHeader() {
                 알림
               </Button>
               <Divider orientation="vertical" flexItem />
-              <Button            
-                onClick={()=>router.push("/account/signin")}
-                sx={{ my: 1, mx: 2, color:"black" }}
-              >
-                <img src='/icons/top/로그인.png'  style={{marginRight:"0.5rem"}}/>
-                로그인
-              </Button>
-              <Divider orientation="vertical"  flexItem/>
-              <Button            
-                href="#"
-                sx={{ my: 1, mx: 2, color:"black" }}
-              >
-               <img src='/icons/top/회원가입.png'  style={{marginRight:"0.5rem"}} />
-                회원가입
-              </Button>
-              <Divider orientation="vertical" flexItem />
+              {(status === "unauthenticated" || status === "loading") && (
+                <>
+                  <Button            
+                    onClick={()=>router.push("/account/signin")}
+                    sx={{ my: 1, mx: 2, color:"black" }}
+                  >
+                    <img src='/icons/top/로그인.png'  style={{marginRight:"0.5rem"}}/>
+                    로그인
+                  </Button>                    
+                  <Divider orientation="vertical"  flexItem/>
+                  <Button            
+                    href="#"
+                    sx={{ my: 1, mx: 2, color:"black" }}
+                  >
+                  <img src='/icons/top/회원가입.png'  style={{marginRight:"0.5rem"}} />
+                    회원가입
+                  </Button>
+                  <Divider orientation="vertical" flexItem />
+                </>
+              )}
+              {status === "authenticated" && (
+                <>
+                  <MenuItem onClick={()=>router.push("/account/signin")}
+                    sx={{ my: 1, mx: 1.5, color:"black"}}>                    
+                    <img src='/icons/top/로그아웃.png' />
+                    <Typography >
+                      로그아웃
+                    </Typography>
+                  </MenuItem>
+                </>
+              )}
               <Button            
                 href="#"
                 sx={{ my: 1, mx: 1.5, color:"black" }}

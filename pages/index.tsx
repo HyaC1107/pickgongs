@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { GetServerSideProps, GetStaticProps, InferGetStaticPropsType } from 'next';
 import mongooseInit from '../lib/mongooseInit';
 import Contractor from './contractor';
+import PickItem, {PickItemData} from '@/lib/models/pickItem';
 
 
 export default function Home() {
@@ -14,6 +15,20 @@ export default function Home() {
     </Grid>
   );
 }
+export const getStaticProps: GetStaticProps = async (context) => {
+  mongooseInit();
+  const pickitem = await PickItem.find();
+  if (!pickitem) {
+    return {
+      notFound: true,
+    };
+  }
 
+  return {
+    props: {
+      pickitem: JSON.parse(JSON.stringify(pickitem)),
+    },
+  };
+};
 
 Home.isRaw = false;

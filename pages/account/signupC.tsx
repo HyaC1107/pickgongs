@@ -17,18 +17,45 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useRouter } from 'next/router';
 import ServiceCustomer from './modal/serviceCustomer';
 import PrivacyPolicy from './modal/privacyPolicy';
+import { useRef, useContext,createContext, useState } from "react";
+
+
+
 
 export default function SignUpC() {
     const router = useRouter();
+
     const [type, setType] = React.useState<string>("contractor");
     const [check, setCheck] = React.useState<boolean>(true);
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        });
+
+
+    const userIdRef = useRef<HTMLInputElement>();
+    const passwordRef = useRef<HTMLInputElement>();
+    const passwordCheckRef = useRef<HTMLInputElement>();
+    const emailRef = useRef<HTMLInputElement>();
+    const nickNameRef = useRef<HTMLInputElement>();
+  
+    const signupHandle = async () => {
+      // const datas = {
+      //   userId: userIdRef!.current?.value,
+      //   password: passwordRef!.current?.value,
+      //   email: emailRef!.current?.value,
+      //   nickname: nickNameRef!.current?.value,
+      //   type:type
+      // };
+      // const response = await fetch("/api/account/signup", {
+      //   method: "POST",
+      //   body: JSON.stringify(datas),
+      //   headers: {
+      //     "Content-type": "application/json",
+      //   },
+      // });
+      // console.log(response);
+      // if (response.status === 201) {
+      //   // console.log("1차");
+      // } else{
+      //   alert("오류");
+      // }
     };
 
   return (    
@@ -48,7 +75,7 @@ export default function SignUpC() {
           <Typography component="h1" fontSize={"43px"} fontFamily={"NotoSansKR-Regular"}>
             사업자 회원가입
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate  sx={{ mt: 3 }}>
             <Grid container spacing={4}>
             <Grid item xs={12}>
                 <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder"}}>아이디를 입력해주세요
@@ -58,8 +85,9 @@ export default function SignUpC() {
                   required
                   fullWidth
                   id="userId"
-                  label="아이디"
+                  label="name"
                   autoFocus
+                  inputRef={userIdRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -78,6 +106,7 @@ export default function SignUpC() {
                   label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="password"
+                  inputRef={passwordRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -88,7 +117,7 @@ export default function SignUpC() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 다시한번 입력해주세요</Typography>
+                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 다시 한번 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
@@ -96,6 +125,7 @@ export default function SignUpC() {
                   label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="passwordCheck"
+                  inputRef={passwordCheckRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -111,8 +141,9 @@ export default function SignUpC() {
                   required
                   fullWidth
                   id="email"
-                  label="example@email.com"
+                  label="name@email.com"
                   name="email"
+                  inputRef={emailRef}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -121,7 +152,7 @@ export default function SignUpC() {
                     )
                   }}
                 />
-              </Grid>   
+              </Grid>              
               <Grid item xs={12}>
               <Typography sx={{mb:-2, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>사업장을 선택해주세요</Typography>
               </Grid>
@@ -166,11 +197,12 @@ export default function SignUpC() {
             </Grid>
             
             <Button
-                type="submit"
+                // type="submit"
                 fullWidth
                 variant="contained"
                 sx={{backgroundColor:"black", mt: 3, mb: 2, color:"white", fontSize:"27px" }}
                 onClick={()=>{
+                        // signupHandle();
                         if(type==="contractor"){
                             router.push("signupContractor");
                         }else if(type==="heavyEquip"){

@@ -10,6 +10,8 @@ export interface AccountData {
     birth: string; // 생일
     phoneNumber: string;  // 전화번호
     type: string; // 회원 타입
+    provider: string ,
+    providerAccountId: string,
     createdAt: Date; // 생성 날짜
     contractor: {
         profileImg: string; // 사업장 사진
@@ -93,6 +95,8 @@ const accountSchema = new mongoose.Schema<AccountData>({
     phoneNumber: { type: String}, 
     type: { type: String },
     createdAt: Date,
+    provider: { type: String },
+    providerAccountId: { type: String },
     contractor:{
         profileImg: String,
         leaseAgreement: String,

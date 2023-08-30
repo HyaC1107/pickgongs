@@ -41,6 +41,7 @@ export default function SignUp() {
       password: passwordRef!.current?.value,
       email: emailRef!.current?.value,
       nickname: nickNameRef!.current?.value,
+      type:"customer"
     };
     const response = await fetch("/api/account/signup", {
       method: "POST",
@@ -51,15 +52,9 @@ export default function SignUp() {
     });
     console.log(response);
     if (response.status === 201) {
-      const result: any = await signIn("credentials", {
-        redirect: false,
-        email: datas.email,
-        password: datas.password,
-      });
-      if (result.ok) {
-        ctx?.closeModal(true);
-      } else {
-      }
+      router.push("/");      
+    } else{
+      alert("오류");
     }
   };
 
@@ -99,7 +94,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 4,
+            marginTop: 2,
             mx: 'auto',
             display: 'flex',
             flexDirection: 'column',
@@ -108,38 +103,46 @@ export default function SignUp() {
             maxWidth: '100%'
           }}
         >
-          <Typography component="h1" fontSize={"43px"} fontFamily={"NotoSansKR-Regular"} >
+          <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Button onClick={()=>router.push("signin")} >
+                  
+                </Button>
+              </Grid>
+            </Grid>
+          <Typography letterSpacing={"-1px"} fontSize={"15px"} fontFamily={"NotoSansCJKkr-Bold"} >
             회원가입
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder"}}>아이디를 입력해주세요
-                <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button></Typography>
+                <Typography sx={{mb:1, fontSize:"13px", display:"flex", justifyContent: "space-between", fontFamily:"NotoSansKR-Medium"}}>아이디를 입력해주세요
+                <Button sx={{backgroundColor:"#2CB07B",fontSize:"10px",height:"20px", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button></Typography>                
                 <TextField
                   name="userId"
                   required
                   fullWidth
+                  size='small'
                   id="userId"
-                  label="name"
                   autoFocus
                   inputRef={userIdRef}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                          <PersonIcon />
-                      </InputAdornment>
-                    )
-                  }}
+                  // InputProps={{
+                  //   endAdornment: (
+                  //     <InputAdornment position="end">
+                  //         <PersonIcon />
+                  //     </InputAdornment>
+                  //   )
+                  // }}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 입력해주세요</Typography>
+                <Typography sx={{mb:1, fontSize:"13px", fontFamily:"NotoSansKR-Medium" }}>비밀번호를 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                size='small'
                   name="password"
-                  label="비밀번호 8자리(숫자,글자,특수문자 포함)"
+                  // label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="password"
                   inputRef={passwordRef}
@@ -153,12 +156,13 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 다시한번 입력해주세요</Typography>
+                <Typography sx={{mb:1, fontSize:"13px", fontFamily:"NotoSansKR-Medium" }}>비밀번호를 다시한번 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                size='small'
                   name="passwordCheck"
-                  label="비밀번호 8자리(숫자,글자,특수문자 포함)"
+                  // label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="passwordCheck"
                   inputRef={passwordCheckRef}
@@ -172,12 +176,12 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>이메일을 입력해주세요</Typography>
+                <Typography sx={{mb:1, fontSize:"13px", fontFamily:"NotoSansKR-Medium" }}>이메일을 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                  size='small'
                   id="email"
-                  label="name@email.com"
                   name="email"
                   inputRef={emailRef}
                   InputProps={{
@@ -190,13 +194,13 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>닉네임을 입력해주세요
-                <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button></Typography>
+              <Typography sx={{mb:1, fontSize:"13px", display:"flex", justifyContent: "space-between", fontFamily:"NotoSansKR-Medium"}}>닉네임을 입력해주세요
+              <Button sx={{backgroundColor:"#2CB07B",fontSize:"13px",height:"20px", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button></Typography>
                 <TextField
                   required
                   fullWidth
+                  size='small'
                   id="nickName"
-                  label="닉네임을 입력해주세요"
                   name="nickName"
                   inputRef={nickNameRef}
                 />
@@ -210,41 +214,34 @@ export default function SignUp() {
               </form>
 
               <button onClick={onClickCertify}> 휴대폰 인증 </button> */}
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>본인인증하기
-                  <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>인증하기</Button></Typography>
+                <Typography sx={{mb:1, fontSize:"13px", display:"flex", justifyContent: "space-between", fontFamily:"NotoSansKR-Medium"}}>본인인증하기
+                <Button sx={{backgroundColor:"#2CB07B",fontSize:"13px",height:"20px", color:"white", borderRadius:"1rem", ml:2}}>인증하기</Button></Typography>
               </Grid>         
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <FormControlLabel
                     control={<Checkbox value="allow1" color="primary" />}
                     label="서비스 이용약관"
                 />               
                 <ServiceCustomer />
               </Grid>  
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{pt:"12px"}}>                
                 <FormControlLabel
-                    control={<Checkbox value="allow2" color="primary" />}
-                    label="개인정보처리방침"
-                />               
+                      control={<Checkbox value="allow2" color="primary" />}
+                      label="개인정보처리방침"
+                  />               
                 <PrivacyPolicy />
               </Grid> 
             </Grid>
                
             <Button
-              type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, color:"white", fontSize:"27px" }}
+              sx={{ mt: 3, mb: 2, width:"42%",height:"60px",borderRadius:"2rem",  color:"white", fontSize:"24px", backgroundColor:"#000326" }}
               onClick={signupHandle}
             >
               회원가입완료
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Button onClick={()=>router.push("signin")} >
-                  이미 계정을 갖고 계신가요?
-                </Button>
-              </Grid>
-            </Grid>
+            
           </Box>
         </Box>
       </Container>
