@@ -61,7 +61,7 @@ export default function ScheduleTabInfo() {
         </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-            <Box sx={{width:"90%", margin:"auto", flexDirection:"column"}}>
+            <Box sx={{width:"100%", margin:"auto", flexDirection:"column"}}>
                 <Box sx={{display:"flex", minHeight:"400px", flexDirection:"row", justifyContent:"space-between"}}>
                     <Box sx={{width:"300px"}}>
                         <Box sx={{display:"flex",width:"300px", height:"330px",overflowY:"scroll", flexDirection:"column",textAlign:"center", border:"1px solid black"}}>
@@ -79,8 +79,32 @@ export default function ScheduleTabInfo() {
                     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ko}>
                         <StaticDatePicker 
                             displayStaticWrapperAs="desktop"
-                            sx={{minWidth:"500px",fontSize: 34}}                        
+                            sx={{maxWidth: '745px',
+                            "& .MuiPickersCalendarHeader-root": {
+                                width: "100%",
+                           },
+                           "& .MuiIconButton-root": {
+                                width: 64,
+                           },
+                           "& .MuiTypography-caption": {
+                                width: 64,
+                           },
+                           "& .MuiPickersDay-root": {
+                                width: 48,
+                                height: 48
+                           },
+                           "& .MuiYearCalendar-root": {
+                                width: 745
+                           },                        
+                           "& .MuiDatePickerToolbar-title": {
+                                'font-size': '2rem'
+                           },
+                           "& .css-1hbyad5-MuiTypography-root": {
+                                'font-size': '1rem'
+                           },
+                        }}                        
                             defaultValue={dayjs('2022-04-17')}
+                            
                         />
                     </LocalizationProvider>
                 </Box>
