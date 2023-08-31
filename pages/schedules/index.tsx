@@ -10,7 +10,7 @@ export default function Schedules() {
     <Box
         sx={{
           position: "relative",
-          maxWidth: "1120px",
+          maxWidth: "1280px",
           margin: "auto",
           pb: 10,
           mt: 5,

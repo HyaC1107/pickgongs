@@ -44,9 +44,10 @@ export default function TabInfo() {
     <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="업체 정보" {...a11yProps(0)} />
-            <Tab label="주 업무" {...a11yProps(1)} />
-            <Tab label="포트폴리오" {...a11yProps(2)} />
+            <Tab className="text2" label="업체 정보" {...a11yProps(0)} />
+            <Tab className="text2" label="주 업무" {...a11yProps(1)} />
+            <Tab className="text2" label="포트폴리오" {...a11yProps(2)} />
+            <Tab className="text2" label="리뷰" {...a11yProps(3)} />
         </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -132,6 +133,13 @@ export default function TabInfo() {
           <Button sx={{width:"200px",height:"47px", backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", mr:4, fontSize:26}}>블로그 편집</Button>
           <Button sx={{width:"200px",height:"47px", backgroundColor:"#158D60", color:"white", borderRadius:"1rem", fontSize:26}}>설정 완료</Button>
         </Box>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+        <Toolbar component="nav" variant="dense" sx={{ justifyContent: "center", overflowX: 'auto' }}>
+            <Box>
+            리뷰
+            </Box>
+        </Toolbar>
         </TabPanel>
     </Box>)
 }

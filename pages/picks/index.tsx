@@ -21,7 +21,7 @@ function Picks() {
     <Box
       sx={{
         position: "relative",
-        maxWidth: "1120px",
+        maxWidth: "1280px",
         margin: "auto",
         pb: 10,
         mt: 5,
@@ -37,8 +37,8 @@ function Picks() {
         </Grid>        
         {type?sliceCa2.map((one) => (
           <Grid key={one.name} item xs={4.5} sm={2.4} md={1.6} sx={{margin:"auto",textAlign:"center", opacity:"0.3"}}>
-            <img src={one.img} width={"64px"} height={"64px"} />
-            <Typography>{one.name}</Typography>
+            <img src={one.img}  width={"108px"} height={"108px"} />
+            <Typography sx={{height:"36px"}}>{one.name}</Typography>
           </Grid>
         )):sliceCa.map((one) => (
           <Grid key={one.name} item xs={4.5} sm={2.4} md={1.6} sx={{margin:"auto",textAlign:"center", opacity:"0.3"}}>

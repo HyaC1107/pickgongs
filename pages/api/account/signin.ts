@@ -11,9 +11,9 @@ export default async function handler(
   mongooseInit();
   const { userId, password } = req.body as { userId: string; password: string };
   const find = await Account.findOne({ userId: userId });
-  console.log("SERVER - " + find);
+  // console.log("SERVER - " + find);
   if (compareSync(password, find?.password!)) {
-    console.log("일치");
+    // console.log("일치");
     return res.status(200).json(find);
   }
   return res.status(406).json(null);

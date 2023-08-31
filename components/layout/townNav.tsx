@@ -2,6 +2,7 @@ import { AppBar, Box, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 type Section = { title: string; url: string };
 
@@ -11,7 +12,7 @@ const sectionsByUser: Section[] = [
   { title: '스케줄', url: '/schedules'},
   { title: '찜콕♥', url: '/favorites'},
   { title: 'TALK', url: '/talk'},
-  { title: '마이페이지', url: '/qna'},
+  { title: '마이페이지', url: '/myPage'},
 ];
 const sectionsByCompany: Section[] = [
   { title: '우리가게 꾸미기', url: '/signin'},
@@ -23,6 +24,7 @@ const sectionsByCompany: Section[] = [
 ];
 export default function TownNav() {
   const router = useRouter();
+  const { data } = useSession();
   const [value, setValue] = useState(0);
   const tabChangeHandle = (event: SyntheticEvent, value: number) => {
     setValue(value);

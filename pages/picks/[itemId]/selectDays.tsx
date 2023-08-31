@@ -84,7 +84,7 @@ export default function SelectDays() {
                 </Box>
             </Box>
             <Box sx={{width:"60%", textAlign:"center"}}>
-                <Typography variant="h4">철거</Typography>
+                <Typography variant="h4" sx={{mb:"60px"}}>철거</Typography>
                 <Grid container spacing={2} sx={{ml:2, flexGrow:1}}>
                 {cards.map((one) => (
                     <Grid item xs={12} sm={4}>
@@ -114,7 +114,7 @@ export default function SelectDays() {
                 </Grid>
             </Box>
         </Box>
-        <Box sx={{ backgroundColor:"#cfcfcf", maxWidth:"1200px", height:"500px", display:"flex",mt:4,p:2}}>
+        <Box sx={{ backgroundColor:"#D9DEEA", maxWidth:"1200px", height:"500px", display:"flex",mt:4,p:2}}>
             <Box sx={{ml:2, minWidth:"500px", mt:5}}>
                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ko}>
                         <StaticDatePicker 

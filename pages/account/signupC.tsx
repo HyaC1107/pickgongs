@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useRouter } from 'next/router';
 import ServiceCustomer from './modal/serviceCustomer';
 import PrivacyPolicy from './modal/privacyPolicy';
@@ -63,98 +64,74 @@ export default function SignUpC() {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 4,
           mx: 'auto',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width:640,
-          maxWidth: '100%'
+          width:"89%",
+          maxWidth: "640px"
         }}
       >
-          <Typography component="h1" fontSize={"43px"} fontFamily={"NotoSansKR-Regular"}>
+        <IconButton className='backButton' onClick={() => router.back()}>
+          <ArrowBackIosIcon  />
+        </IconButton>
+          <Typography className='title2 signupCTitle' sx={{letterSpacing:"-0.025em", textAlign:"center", width:"89%"}}>
             사업자 회원가입
           </Typography>
-          <Box component="form" noValidate  sx={{ mt: 3 }}>
-            <Grid container spacing={4}>
-            <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder"}}>아이디를 입력해주세요
-                <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>중복확인</Button></Typography>
+          <Box component="form" noValidate >
+            <Grid container>
+            <Grid className='signupItem' item xs={12}>
+                <Typography className='text5' sx={{mb:1,letterSpacing:"-0.025em", display:"flex", justifyContent: "space-between"}}>아이디를 입력해주세요
+                <Button className='caption signupButton' sx={{letterSpacing:"-0.025em", width:"130px",height:"40px", ml:2}}>중복확인</Button></Typography>                
                 <TextField
                   name="userId"
                   required
                   fullWidth
+                  size='small'
                   id="userId"
-                  label="name"
                   autoFocus
                   inputRef={userIdRef}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                          <PersonIcon />
-                      </InputAdornment>
-                    )
-                  }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 입력해주세요</Typography>
+              <Grid className='signupItem' item xs={12}>
+                <Typography className='text5' sx={{mb:1,letterSpacing:"-0.025em", }}>비밀번호를 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                size='small'
                   name="password"
-                  label="비밀번호 8자리(숫자,글자,특수문자 포함)"
+                  // label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="password"
                   inputRef={passwordRef}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                          <LockOutlinedIcon />
-                      </InputAdornment>
-                    )
-                  }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>비밀번호를 다시 한번 입력해주세요</Typography>
+              <Grid className='signupItem' item xs={12}>
+                <Typography className='text5' sx={{mb:1,letterSpacing:"-0.025em", }}>비밀번호를 다시한번 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                size='small'
                   name="passwordCheck"
-                  label="비밀번호 8자리(숫자,글자,특수문자 포함)"
+                  // label="비밀번호 8자리(숫자,글자,특수문자 포함)"
                   type="password"
                   id="passwordCheck"
                   inputRef={passwordCheckRef}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                          <LockOutlinedIcon />
-                      </InputAdornment>
-                    )
-                  }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>이메일을 입력해주세요</Typography>
+              <Grid className='signupItem' item xs={12}>
+                <Typography className='text5' sx={{mb:1,letterSpacing:"-0.025em", }}>이메일을 입력해주세요</Typography>
                 <TextField
                   required
                   fullWidth
+                  size='small'
                   id="email"
-                  label="name@email.com"
                   name="email"
                   inputRef={emailRef}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                          <EmailOutlinedIcon />
-                      </InputAdornment>
-                    )
-                  }}
                 />
-              </Grid>              
-              <Grid item xs={12}>
-              <Typography sx={{mb:-2, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>사업장을 선택해주세요</Typography>
+              </Grid>           
+              <Grid className='signupItem' item xs={12}>
+                <Typography className='text5' sx={{letterSpacing:"-0.025em", }}>사업장을 선택해주세요</Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Button
@@ -163,31 +140,31 @@ export default function SignUpC() {
                       setType("contractor");
                       setCheck(true);
                     }}
-                    sx={{border:"1px solid #ccc",fontSize:21, height:66, backgroundColor:check?"#15BF81":"white", color:"black"}}
+                    sx={{border:"1px solid #ccc",fontSize:21, height:66, backgroundColor:check?"#15BF81":"white", color:check?"white":"black"}}
                 >시공업체</Button>
               </Grid>  
               <Grid item xs={12} sm={6}> 
                 <Button
                     fullWidth
-                    sx={{border:"1px solid #ccc",fontSize:21, height:66,backgroundColor:check?"white":"#15BF81",color:"black"}}
+                    sx={{border:"1px solid #ccc",fontSize:21, height:66,backgroundColor:check?"white":"#15BF81",color:check?"black":"white"}}
                     onClick={()=>{
                         setType("heavyEquip");
                         setCheck(false);
                     }}
                 >중장비</Button>
               </Grid>  
-              <Grid item xs={12}>
+              <Grid className='signupItem' item xs={12}>
                 <Typography sx={{mb:1, fontSize:"21px", fontFamily:"NotoSansKR-Medium", fontWeight:"bolder" }}>본인인증하기
                   <Button sx={{backgroundColor:"#FC8210", color:"white", borderRadius:"1rem", ml:2}}>인증하기</Button></Typography>
               </Grid> 
-              <Grid item xs={12}>
+              <Grid className='signupItem' item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="allow1" color="primary" />}
                     label="서비스 이용약관"
                 />               
                 <ServiceCustomer />
               </Grid>  
-              <Grid item xs={12}>
+              <Grid className='signupItem' item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="allow2" color="primary" />}
                     label="개인정보처리방침"
@@ -195,12 +172,19 @@ export default function SignUpC() {
                 <PrivacyPolicy />
               </Grid>        
             </Grid>
-            
-            <Button
-                // type="submit"
-                fullWidth
+
+            <Grid className='signupButtonBox' sx={{display:"flex",width:"100%", justifyContent:"center"}}>
+              <Button              
                 variant="contained"
-                sx={{backgroundColor:"black", mt: 3, mb: 2, color:"white", fontSize:"27px" }}
+                className='text4 loginButton'              
+                sx={{ 
+                  minWidth:"150px",
+                  maxWidth:"300px",
+                  width:"42%",
+                  color:"white", 
+                  backgroundColor:"black",  
+                  borderRadius:"3rem" 
+                }}
                 onClick={()=>{
                         // signupHandle();
                         if(type==="contractor"){
@@ -212,16 +196,11 @@ export default function SignUpC() {
                         }
                     }                    
                 }
-            >
-              다음 단계
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Button onClick={()=>router.push("signin")} >
-                  이미 계정을 갖고 계신가요?
-                </Button>
-              </Grid>
-            </Grid>
+              >
+                다음 단계
+              </Button>
+            </Grid>    
+            
           </Box>
         </Box>
       </Container>

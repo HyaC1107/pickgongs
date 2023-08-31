@@ -13,14 +13,15 @@ import { OutlinedInput, InputAdornment, IconButton,InputLabel   } from '@mui/mat
 import Visibility from '@mui/icons-material/Visibility';
 import { useRef, useContext, useState } from "react";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/router';
 import { SignCotext } from './signup';
 import { signIn } from 'next-auth/react'
 
 export default function SignIn() {
     const ctx = useContext(SignCotext);
-    const userIdRef = useRef<HTMLInputElement>();
-    const passwordRef = useRef<HTMLInputElement>();
+    const userIdRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -53,8 +54,8 @@ export default function SignIn() {
       // const result:any = await signIn("credentials", {
       //   userId: userIdRef!.current?.value,
       //   password: passwordRef!.current?.value,
-      //   // redirect: true,
-      //   // callbackUrl: "/",
+      //   redirect: true,
+      //   callbackUrl: "/",
       // });
       // console.log(result);
       // if (result.ok) {
@@ -84,14 +85,6 @@ export default function SignIn() {
 
 
 
-    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    //   event.preventDefault();
-    //   const data = new FormData(event.currentTarget);
-    //   console.log({
-    //     email: data.get('email'),
-    //     password: data.get('password'),
-    // });
-  // };
 
   return (
       <Container component="main" >
@@ -104,76 +97,61 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" sx={{fontSize:"44px", fontFamily:"NotoSansCJKkr-Bold", letterSpacing:"-2.7px"}}>
-            시공전문가 찾고 <span style={{fontSize:"54px", color:"#2CB07B"}}>픽!</span> 할 땐
+          <Typography component="h1" className='loginTitle' sx={{letterSpacing:"-2.7px"}}>
+            시공전문가 찾고 <span className='loginSubTitle' style={{color:"#2CB07B"}}>픽!</span> 할 땐
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="userId"
-              label="아이디를 입력해주세요"
-              name="userId"
-              inputRef={userIdRef}
-              autoFocus
-              onChange={(evt) => setUserId(evt.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              name="password"
-              label="비밀번호를 입력해주세요"
-              type={showPassword ? 'text' : 'password'}
-              inputRef={passwordRef}
-              InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                        >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    </InputAdornment>
-                )
-              }}
-            />            
-            <Grid container sx={{mt:4}}>
-              <Grid item xs>
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="자동로그인"
-                />
-              </Grid>
-              <Grid item sx={{mt:1}}>
-                <Link href="#" variant="body2" sx={{textDecoration:"none", color:"#ccc"}}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width:"100%" }}>
+            <Box className='loginBox' sx={{margin:"auto", mb:"20px"}}>
+              <img src='/icons/account/login/자산 3.png' />
+              <input type='text' ref={userIdRef} 
+                id='userId'
+                name='userId'
+                autoFocus
+                required placeholder='아이디를 입력해주세요'/>
+            </Box>
+            <Box className='loginBox' sx={{margin:"auto",mb:"10px"}}>
+              <img src='/icons/account/login/자산 4.png' />
+              <input type='text' ref={passwordRef} required placeholder='비밀번호를 입력해주세요' />
+            </Box>
+            <Typography className='caption' sx={{ textAlign:"center", letterSpacing:"-0.05em"}} color={"#FF3120"}>로그인이 되지 않습니다 아이디와 비밀번호를 다시 입력하세요</Typography>
+            <Grid className='autologinbox' container>
+              <Grid item xs={12} sx={{display:"flex", justifyContent:"center"}}>
+                {/* <label className='text1' sx={{mr:}}><input type='checkbox' />자동로그인</label> */}
+                <Typography className='text1 loginCheckBox' sx={{color:"#848484", letterSpacing:"-0.025em"}}>
+                  <input type='checkbox' id="remember" /><label htmlFor="remember">자동로그인</label>
+                </Typography>
+                <Link href="#" variant="body2" className='text1' sx={{textDecoration:"none",mr:"20px", color:"#848484", letterSpacing:"-0.025em"}}>
                   {"아이디/비밀번호 찾기"}
                 </Link>
               </Grid>
             </Grid>
             <Grid item >
                 <Button fullWidth
-                    sx={{backgroundColor:"white", color:"#8A8A8A",mt: 10}}
-                    onClick={()=>router.push("/account/signupType")}
+                  className='text2'
+                  sx={{backgroundColor:"white", color:"#8A8A8A",letterSpacing:"-0.025em"}}
+                  onClick={()=>router.push("/account/signupType")}
                 >
                   회원 / 파트너 회원가입
                 </Button>
             </Grid>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={handleSubmit}
-              sx={{ mt: 10, mb: 2, color:"white", backgroundColor:"black", height:"4rem", fontSize:"1.5rem", borderRadius:"1rem" }}
-            >
-              로그인
-            </Button>
-              
           </Box>
+            <Grid className='loginButtonBox' sx={{display:"flex",width:"100%", justifyContent:"center"}}>
+              <Button              
+                variant="contained"
+                className='text4 loginButton'
+                onClick={handleSubmit}                
+                sx={{ 
+                  minWidth:"150px",
+                  maxWidth:"300px",
+                  width:"42%",
+                  color:"white", 
+                  backgroundColor:"black",  
+                  borderRadius:"3rem" 
+                }}
+              >
+                로그인
+              </Button>
+            </Grid>
         </Box>
       </Container>
   );

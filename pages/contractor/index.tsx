@@ -29,12 +29,12 @@ function Contractor() {
       <Grid container spacing={2} sx={{mt:2 }}>
         <Grid item xs={12} sm={6} sx={{display:"flex", justifyContent:"flex-end", mb:3}} >
           <Button onClick={()=>router.push("/contractor/category")}><img src={categories[0].img} width={"99px"} height={"99px"} />
-            <Typography sx={{ml:"1rem"}}>3D도면설계</Typography>
+            <Typography sx={{ml:"1rem",color:"black"}}>3D도면설계</Typography>
           </Button>
         </Grid>  
         <Grid item xs={12} sm={6} sx={{display:"flex", justifyContent:"flex-start", mb:3}} >
           <Button><img src={categories[1].img} width={"99px"} height={"99px"} />
-          <Typography sx={{ml:"1rem"}}>종합인테리어</Typography>
+          <Typography sx={{ml:"1rem",color:"black"}}>종합인테리어</Typography>
           </Button>
         </Grid>        
         {type?sliceCa2.map((one) => (

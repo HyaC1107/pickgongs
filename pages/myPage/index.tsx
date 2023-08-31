@@ -15,14 +15,16 @@ export default function MyPage() {
         margin: "auto"
       }}
     >
-        <Grid container component="main" sx={{ height: "100vh" }}>
-            <Grid item xs={12}>
-                <Box>{data?.user?.image}</Box>
-                <Typography component="h1" variant="h3">
-                    {/* {data?.user?.name}  */}
-                    화난 어피치 = 업체명
-                </Typography>
-                <Typography component="h1" variant="h3">
+        <Grid container component="main" sx={{ height: "100vh", pt:"130px" }}>
+            <Grid item xs={12} sx={{height:"190px", backgroundColor:"#F9F9F9",pl:"133px",pr:"133px", justifyContent:"space-between", alignItems:"center"}}>
+                <Box sx={{display:"flex", alignItems:"center"}}>
+                    <img src="/icons/myPage/그룹 3203.png" width={"100px"} height={"100px"} />
+                    <Typography className="title2" sx={{ml:"34.5px"}}>
+                        {/* {data?.user?.name}  */}
+                        화난 어피치 = 업체명
+                    </Typography>
+                </Box>
+                <Typography className="title2">
                     {/* {data?.user?.name}  */}
                     010-0000-0000
                 </Typography>

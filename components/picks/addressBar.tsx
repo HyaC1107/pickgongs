@@ -9,7 +9,7 @@ export default function AddressBar({type, setType}:{type:boolean; setType:any}) 
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />
           <Button sx={{backgroundColor:type?"white":"#008A60"}} onClick={()=>{setType(false)}} >상가, 건물</Button>                   
           <Divider orientation="vertical" flexItem sx={{mr:1,ml:1}} />
-          <Typography sx={{flexGrow:"1", mr:1}}>서울시 서초구 </Typography>          
+          <Typography sx={{flexGrow:"1", mr:1}}></Typography>          
           <Button>주소 설정</Button>
         </Box>
     )

@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
-        userId: {label: "userId", type: "text", placeholder: "test"},
+        userId: {label: "userId", type: "text"},
         password: {label: "Password", type: "password"},
       },
       async authorize(credentials, req) {
@@ -35,7 +35,8 @@ export const authOptions: NextAuthOptions = {
               id: data._id,
               userId: data.userId,
               nickname: data.nickname,
-              email: data.email
+              email: data.email,
+              type: data.type,
             };
             return user;
             // return data; // next-auth 에 리턴되는 User 데이터는 토큰에 포함됨.
@@ -60,6 +61,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  secret: process.env.SECRET,
 };
 
 export default NextAuth(authOptions);

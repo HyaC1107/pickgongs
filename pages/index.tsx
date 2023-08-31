@@ -9,6 +9,7 @@ import PickItem, {PickItemData} from '@/lib/models/pickItem';
 
 export default function Home() {
   const { data, status } = useSession();
+  console.log(data?.user?.email , status);
   return (         
     <Grid container spacing={2} sx={{mt:6}}>
       <Contractor />
